@@ -2,7 +2,7 @@
 const BRANCH_NAMES={ABBS:"عباس",GS:"المعادي",TER:"مصر الجديدة",TG:"التجمع",NWH:"المخزن الرئيسي"};
 const BRANCH_PRIORITY=["TG","TER","GS","ABBS"];
 const SALE_BRANCHES=["ABBS","GS","TER","TG"];
-const FALLBACK={TG:0.35,TER:0.25,ABBS:0.22,GS:0.18};
+const FALLBACK={TG:0.32,TER:0.28,ABBS:0.22,GS:0.18};
 const STAGNANT_DAYS=15, MIN_BRANCH_KEEP=5, MIN_MOVE_QTY=3, IGNORE_DIFF_LT=2, MIN_RECEIVE_QTY=3;
 const appState={stockData:null,salesData:null,purchaseData:null,results:[],stagnantResults:[],auditRows:null,auditResult:null,openingRows:null,txRows:null,stockoutResult:null};
 const viewMeta={home:{title:"الصفحة الرئيسية",subtitle:"نسخة v22 بألوان اللوجو مع دعم اللغة والدارك مود."},uploads:{title:"رفع الملفات",subtitle:"حمّل ملف المخزون وملف المبيعات وملف الشراء."},redistribution:{title:"إعادة التوزيع",subtitle:"التوزيع يعتمد على الباركود مع الفئة ووحدة القياس."},stagnant:{title:"المنتجات الراكدة",subtitle:"تحليل المنتجات الراكدة بالباركود فقط."},audit:{title:"تقرير الجرد",subtitle:"تحليل فروق الجرد لكل فرع مع KPI وتقرير Word."},stockout:{title:"Stock-out Analysis",subtitle:"تحليل الانقطاع وإعادة التوفر حسب الرصيد التراكمي."}};
