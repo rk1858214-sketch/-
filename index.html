@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockFlow v22</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><img class="logo-img" src="logo.jpeg" alt="C Store logo" /><div><h1>StockFlow</h1><p>v22</p></div></div>
+    <nav class="nav">
+      <button class="nav-btn active" data-view="home">الرئيسية</button>
+      <button class="nav-btn" data-view="uploads">رفع الملفات</button>
+      <button class="nav-btn" data-view="redistribution">إعادة التوزيع</button>
+      <button class="nav-btn" data-view="stagnant">المنتجات الراكدة</button>
+      <button class="nav-btn" data-view="audit">تقرير الجرد</button>
+      <button class="nav-btn" data-view="stockout">Stock-out Analysis</button>
+    </nav>
+    <div class="sidebar-note"><h3>الموديولات</h3><ul><li>Barcode Matching</li><li>Smart Distribution</li><li>Stagnant Products</li><li>Inventory Audit</li><li>Excel + Word Export</li></ul></div>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <div><h2 id="page-title">الصفحة الرئيسية</h2><p id="page-subtitle">نسخة كاملة فعلية تشمل التوزيع والراكد والجرد والتقارير.</p></div>
+      <div class="topbar-actions"><button class="secondary-btn lang-btn" id="lang-toggle" type="button">EN</button><button class="secondary-btn dark-btn" id="dark-toggle" type="button">🌙</button><div class="status-pill" id="global-status">جاهز</div></div>
+    </header>
+
+    <section class="view active" id="view-home">
+      <div class="hero-card">
+        <div><h3>StockFlow v19 - Real Audit</h3><p>النسخة دي فعلية وتشمل رفع المخزون والمبيعات والشراء، إعادة التوزيع الذكي، المنتجات الراكدة، وتقرير الجرد لكل فرع مع KPI للأقسام وملخص سريع وتصدير Word عربي + إنجليزي.</p></div>
+        <div class="hero-actions"><button class="primary-btn" data-jump="uploads">ابدأ برفع الملفات</button><button class="secondary-btn" data-jump="audit">اذهب لتقرير الجرد</button></div>
+      </div>
+      <div class="card-grid six">
+        <article class="feature-card clickable" data-jump="uploads"><div class="icon-box soft">📦</div><h3>المخزون</h3><p>قراءة المخزون بالباركود.</p></article>
+        <article class="feature-card clickable" data-jump="uploads"><div class="icon-box pink">📈</div><h3>المبيعات</h3><p>تمبلت جديد مباشر.</p></article>
+        <article class="feature-card clickable" data-jump="uploads"><div class="icon-box rose">🛒</div><h3>الشراء</h3><p>أحدث تاريخ شراء لكل باركود.</p></article>
+        <article class="feature-card clickable" data-jump="redistribution"><div class="icon-box mint">🔀</div><h3>التوزيع</h3><p>محرك توزيع ذكي.</p></article>
+        <article class="feature-card clickable" data-jump="stagnant"><div class="icon-box light">🧊</div><h3>الراكد</h3><p>رصيد + مبيعات + شراء.</p></article>
+        <article class="feature-card clickable" data-jump="audit"><div class="icon-box beige">📋</div><h3>الجرد</h3><p>تحليل Inventory Adjustment + KPI + Word.</p></article>
+        <article class="feature-card clickable" data-jump="stockout"><div class="icon-box soft">📉</div><h3>Stock-out Analysis</h3><p>تحليل الانقطاع وإعادة التوفر.</p></article>
+      </div>
+    </section>
+
+    <section class="view" id="view-uploads">
+      <div class="card-grid three">
+        <article class="upload-card"><div class="card-top"><div class="icon-box soft">📦</div><div><h3>ملف المخزون</h3><p>المنتج / Barcode / الفئة / وحدة القياس / ABBS / GS / NWH / TER / TG</p></div></div><label class="file-drop"><input type="file" id="stock-file" accept=".xlsx" /><span>اختر ملف المخزون</span></label><div class="file-name" id="stock-file-name">لم يتم اختيار ملف</div></article>
+        <article class="upload-card"><div class="card-top"><div class="icon-box pink">📊</div><div><h3>ملف المبيعات</h3><p>المنتج / Barcode / ABBS / GS / TER / TG / total</p></div></div><label class="file-drop"><input type="file" id="sales-file" accept=".xlsx" /><span>اختر ملف المبيعات</span></label><div class="file-name" id="sales-file-name">لم يتم اختيار ملف</div></article>
+        <article class="upload-card"><div class="card-top"><div class="icon-box rose">🛒</div><div><h3>ملف الشراء</h3><p>Date / الكمية / المنتج / Barcode</p></div></div><label class="file-drop"><input type="file" id="purchase-file" accept=".xlsx" /><span>اختر ملف الشراء</span></label><div class="file-name" id="purchase-file-name">لم يتم اختيار ملف</div></article>
+      </div>
+      <div class="section-card">
+        <div class="section-head"><div><h3>ملخص التحميل</h3><p>يتم تحديث المؤشرات تلقائيًا بعد القراءة.</p></div></div>
+        <div class="stats-grid six-stats">
+          <div class="stat-card"><span class="stat-label">المخزون</span><strong id="stock-status">غير محمل</strong></div>
+          <div class="stat-card"><span class="stat-label">المبيعات</span><strong id="sales-status">غير محمل</strong></div>
+          <div class="stat-card"><span class="stat-label">الشراء</span><strong id="purchase-status">غير محمل</strong></div>
+          <div class="stat-card"><span class="stat-label">باركودات المخزون</span><strong id="stock-products">0</strong></div>
+          <div class="stat-card"><span class="stat-label">باركودات المبيعات</span><strong id="sales-products">0</strong></div>
+          <div class="stat-card"><span class="stat-label">باركودات الشراء</span><strong id="purchase-products">0</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-redistribution">
+      <div class="section-card">
+        <div class="section-head"><div><h3>إعادة توزيع المنتجات</h3><p>القواعد الذكية مفعلة.</p></div><span class="badge">Smart Engine</span></div>
+        <div class="mode-box">
+          <label class="mode-card selected" data-mode-card><input type="radio" name="distributionMode" value="branches" checked /><div><strong>بين الفروع فقط</strong><p>نقل داخلي بين الفروع.</p></div></label>
+          <label class="mode-card" data-mode-card><input type="radio" name="distributionMode" value="warehouse" /><div><strong>من المخزن للفروع</strong><p>توزيع مباشر من المخزن.</p></div></label>
+        </div>
+        <div class="rules-box"><div>حد أدنى للفرع: <strong>5</strong></div><div>أقل كمية عادية: <strong>3</strong></div><div>Sweet and Sour: <strong>5</strong></div><div>KG / كجم: <strong>1</strong></div></div>
+        <div class="action-row"><button class="primary-btn" id="run-btn">تنفيذ التوزيع</button><button class="secondary-btn" id="export-btn">تصدير Excel</button><div class="mini-status" id="mode-summary">الوضع الحالي: بين الفروع فقط</div></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-label">عدد الحركات</span><strong id="move-count">0</strong></div>
+        <div class="stat-card"><span class="stat-label">عدد المنتجات</span><strong id="product-count">0</strong></div>
+        <div class="stat-card"><span class="stat-label">إجمالي الكمية</span><strong id="qty-count">0</strong></div>
+        <div class="stat-card"><span class="stat-label">نوع التوزيع</span><strong id="mode-label">بين الفروع فقط</strong></div>
+      </div>
+      <div class="section-card"><div class="section-head"><div><h3>نتائج التوزيع</h3><p>الاسم للعرض فقط والربط بالباركود.</p></div></div><div class="table-wrap"><table><thead><tr><th>الباركود</th><th>المنتج</th><th>الفئة</th><th>وحدة القياس</th><th>من</th><th>إلى</th><th>الكمية</th><th>نوع العملية</th></tr></thead><tbody id="results-body"><tr><td colspan="8" class="empty-cell">حمّل الملفات أولًا ثم اضغط تنفيذ التوزيع.</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="view" id="view-stagnant">
+      <div class="section-card"><div class="section-head"><div><h3>المنتجات الراكدة</h3><p>رصيد أكبر من صفر + مبيعات صفر + آخر شراء أقدم من 15 يوم.</p></div><span class="badge">15 يوم</span></div><div class="action-row"><button class="primary-btn" id="run-stagnant-btn">تحليل الراكد</button><button class="secondary-btn" id="export-stagnant-btn">تصدير Excel</button></div></div>
+      <div class="stats-grid"><div class="stat-card"><span class="stat-label">عدد المنتجات الراكدة</span><strong id="stagnant-count">0</strong></div><div class="stat-card"><span class="stat-label">إجمالي رصيدها</span><strong id="stagnant-total-stock">0</strong></div><div class="stat-card"><span class="stat-label">أعلى منتج راكد</span><strong id="stagnant-top-product">-</strong></div><div class="stat-card"><span class="stat-label">الربط</span><strong>Barcode</strong></div></div>
+      <div class="section-card"><div class="section-head"><div><h3>نتائج الراكد</h3><p>يمكنك تصدير التقرير إلى Excel.</p></div></div><div class="table-wrap"><table><thead><tr><th>الباركود</th><th>المنتج</th><th>آخر شراء</th><th>أيام منذ آخر شراء</th><th>عباس</th><th>المعادي</th><th>مصر الجديدة</th><th>التجمع</th><th>المخزن</th><th>إجمالي الرصيد</th><th>إجمالي المبيعات</th></tr></thead><tbody id="stagnant-body"><tr><td colspan="11" class="empty-cell">حمّل الملفات أولًا ثم اضغط تحليل الراكد.</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="view" id="view-audit">
+      <div class="section-card">
+        <div class="section-head"><div><h3>تقرير الجرد</h3><p>ملف Inventory Adjustment - لكل فرع لوحده.</p></div><span class="badge">Audit</span></div>
+        <div class="card-grid two">
+          <article class="upload-card compact"><div class="card-top"><div class="icon-box beige">📋</div><div><h3>رفع ملف الجرد</h3><p>Barcode / المنتج / من / إلى / الكمية / التكلفة / إجمالي / فئة المنتج</p></div></div><label class="file-drop"><input type="file" id="audit-file" accept=".xlsx" /><span>اختر ملف الجرد</span></label><div class="file-name" id="audit-file-name">لم يتم اختيار ملف</div></article>
+          <article class="upload-card compact"><div class="card-top"><div class="icon-box light">🏬</div><div><h3>اختيار الفرع</h3><p>حلل فرع واحد في كل مرة</p></div></div>
+            <select id="audit-branch-select" class="select">
+              <option value="TG/Stock">التجمع - TG/Stock</option>
+              <option value="TER/المخزون">مصر الجديدة - TER/المخزون</option>
+              <option value="GS/Stock">المعادي - GS/Stock</option>
+              <option value="ABBS/Stock">عباس - ABBS/Stock</option>
+              <option value="NWH/Stock">المخزن - NWH/Stock</option>
+            </select>
+            <div class="action-row"><button class="primary-btn" id="run-audit-btn">تحليل الجرد</button><button class="secondary-btn" id="export-audit-excel-btn">تصدير Excel</button><button class="secondary-btn" id="export-audit-word-btn">تصدير Word</button></div>
+          </article>
+        </div>
+      </div>
+      <div class="stats-grid"><div class="stat-card"><span class="stat-label">عدد الأصناف المختلفة</span><strong id="audit-item-count">0</strong></div><div class="stat-card"><span class="stat-label">إجمالي العجز</span><strong id="audit-shortage">0</strong></div><div class="stat-card"><span class="stat-label">إجمالي الأوفر</span><strong id="audit-surplus">0</strong></div><div class="stat-card"><span class="stat-label">صافي القيمة</span><strong id="audit-net-value">0</strong></div></div>
+      <div class="card-grid three">
+        <div class="section-card"><div class="section-head"><div><h3>Top 3 الأقسام فيها فرق</h3><p>أعلى قيمة فرق</p></div></div><div id="audit-top-bad" class="stack-list empty-cell">لا توجد بيانات</div></div>
+        <div class="section-card"><div class="section-head"><div><h3>Top 3 الأقسام الأفضل</h3><p>أقل قيمة فرق</p></div></div><div id="audit-top-good" class="stack-list empty-cell">لا توجد بيانات</div></div>
+        <div class="section-card"><div class="section-head"><div><h3>KPI الأقسام</h3><p>عدد الأصناف + العجز + الأوفر + قيمة الفرق</p></div></div><div id="audit-kpi" class="stack-list empty-cell">لا توجد بيانات</div></div>
+      </div>
+      <div class="section-card"><div class="section-head"><div><h3>نتائج الجرد</h3><p>العجز = كمية سالبة، الأوفر = كمية موجبة.</p></div></div><div class="table-wrap"><table><thead><tr><th>الباركود</th><th>المنتج</th><th>القسم</th><th>عجز</th><th>أوفر</th><th>صافي</th><th>التكلفة</th><th>القيمة</th></tr></thead><tbody id="audit-body"><tr><td colspan="8" class="empty-cell">حمّل ملف الجرد ثم اختر الفرع واضغط تحليل الجرد.</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="view" id="view-stockout">
+      <div class="section-card">
+        <div class="section-head">
+          <div>
+            <h3>Stock-out and Replenishment Analysis</h3>
+            <p>تحليل المنتجات التي وصلت إلى صفر ثم عادت متوفرة مرة أخرى.</p>
+          </div>
+          <span class="badge">Running Balance</span>
+        </div>
+
+        <div class="card-grid two">
+          <article class="upload-card compact">
+            <div class="card-top"><div class="icon-box soft">📦</div><div><h3>Opening Balance</h3><p>Name / الكمية المتوقعة</p></div></div>
+            <label class="file-drop"><input type="file" id="opening-file" accept=".xlsx" /><span>اختر ملف مخزون أول المدة</span></label>
+            <div class="file-name" id="opening-file-name">لم يتم اختيار ملف</div>
+          </article>
+          <article class="upload-card compact">
+            <div class="card-top"><div class="icon-box pink">🧾</div><div><h3>Transactions</h3><p>Date / Product / (+ / -)</p></div></div>
+            <label class="file-drop"><input type="file" id="tx-file" accept=".xlsx" /><span>اختر ملف الحركات</span></label>
+            <div class="file-name" id="tx-file-name">لم يتم اختيار ملف</div>
+          </article>
+        </div>
+
+        <div class="card-grid three">
+          <article class="upload-card compact">
+            <div class="card-top"><div class="icon-box light">📅</div><div><h3>Date Range</h3><p>اختياري</p></div></div>
+            <div class="filter-grid">
+              <input id="stockout-date-from" class="select" type="date" />
+              <input id="stockout-date-to" class="select" type="date" />
+            </div>
+          </article>
+          <article class="upload-card compact">
+            <div class="card-top"><div class="icon-box beige">🔎</div><div><h3>Product Filter</h3><p>اختياري</p></div></div>
+            <input id="stockout-product-filter" class="select" type="text" placeholder="ابحث باسم المنتج" />
+          </article>
+          <article class="upload-card compact">
+            <div class="card-top"><div class="icon-box mint">⏱️</div><div><h3>Minimum Duration</h3><p>بالأيام</p></div></div>
+            <input id="stockout-min-duration" class="select" type="number" min="0" value="0" />
+          </article>
+        </div>
+
+        <div class="warning-box">يتم مطابقة المنتجات بالاسم بعد التنظيف، ويجب رفع ملف أول المدة وملف الحركات قبل التحليل.</div>
+        <div class="action-row">
+          <button class="primary-btn" id="run-stockout-btn">تحليل الانقطاع</button>
+          <button class="secondary-btn" id="export-stockout-excel-btn">تصدير Excel</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-label">وصلت إلى صفر</span><strong id="stockout-zero-count">0</strong></div>
+        <div class="stat-card"><span class="stat-label">عادت متوفرة</span><strong id="stockout-restored-count">0</strong></div>
+        <div class="stat-card"><span class="stat-label">متوسط مدة الانقطاع</span><strong id="stockout-avg-duration">0</strong></div>
+        <div class="stat-card"><span class="stat-label">أعلى تكرار انقطاع</span><strong id="stockout-top-occurrence">-</strong></div>
+      </div>
+
+      <div class="card-grid two">
+        <div class="section-card">
+          <div class="section-head"><div><h3>أعلى المنتجات تكرارًا</h3><p>Top repeated stock-outs</p></div></div>
+          <div id="stockout-top-repeated" class="stack-list empty-cell">لا توجد بيانات</div>
+        </div>
+        <div class="section-card">
+          <div class="section-head"><div><h3>أطول فترات انقطاع</h3><p>Longest stock-out periods</p></div></div>
+          <div id="stockout-longest" class="stack-list empty-cell">لا توجد بيانات</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-head"><div><h3>نتائج الانقطاع وإعادة التوفر</h3><p>يظهر فقط المنتجات التي وصلت إلى صفر ثم عادت متوفرة ورصيدها الحالي أكبر من صفر.</p></div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Product Name</th><th>Start Zero Date</th><th>End Zero Date</th><th>Duration Days</th><th>Current Balance</th><th>Occurrences</th></tr></thead>
+            <tbody id="stockout-body"><tr><td colspan="6" class="empty-cell">حمّل ملف أول المدة وملف الحركات ثم اضغط تحليل الانقطاع.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
